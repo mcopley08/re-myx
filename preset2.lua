@@ -30,6 +30,10 @@ current_move = "rest"
 myo.keyboard("e", "press")
 myo.keyboard("i", "press")
 
+-- This is for adjusting pitch on the grab.
+pitch_difference = 0
+scratch_enabled = false
+
 function onForegroundWindowChange(app, title)
 	-- myo.debug("onForegroundWindowChange: " .. app .. ", " .. title)
 	if (title == "Mixxx 1.11.0 x64") then
@@ -82,7 +86,10 @@ function onPoseEdge(pose, edge)
 		elseif (pose == "fist") then
 			myo.debug("fist - #djsweg pausing muzik")
 			paused = true
-			toggleFade()
+			moveActive = edge == "on"
+            rollReference = getMyoRollDegrees()
+            moveSince = now
+            enabled=true
 		elseif (pose == "fingersSpread") then
 			-- local roll = myo.getRoll()
 			-- myo.debug("roll is: " .. roll)
@@ -96,119 +103,63 @@ function onPoseEdge(pose, edge)
 		elseif (pose == "waveOut") then
 			myo.debug("waving out - doing an effect")
 
-			-- Checking to see which one to do.
-			local new_user_position = myo.getPitch()
-			myo.debug("new user pos is: " .. new_user_position)
+			moveActive = edge == "on"
+            rollReference = getMyoRollDegrees()
+            moveSince = now
+            enabled=true
 
-			local difference = new_user_position - user_position
-
-			-- toggling on high kill
-			if (difference > 0.05) then
-				myo.keyboard("7", "press") -- left
-				myo.keyboard("9", "press") -- right
-			-- switch track to the right
-			elseif (difference < 0) then
-				moveActive = edge == "on"
-	            rollReference = getMyoRollDegrees()
-	            moveSince = now
-	            enabled=true
-				-- myo.keyboard("2", "press") -- left
-			end
-
-			-- changeFilter()
 		elseif (pose == "waveIn") then
 			myo.debug("waving in - messing with the track")
 
-			-- Checking to see which one to do.
-			local new_user_position = myo.getPitch()
-			myo.debug("new user pos is: " .. new_user_position)
+			moveActive = edge == "on"
+            rollReference = getMyoRollDegrees()
+            moveSince = now
+            enabled=true
 
-			local difference = new_user_position - user_position
-
-			-- switch to the right track
-			if (difference > 0.05) then
-				myo.keyboard("1", "press") -- left
-				myo.keyboard("3", "press") -- right
-			-- switch to the left track
-			elseif (difference < 0) then
-				moveActive = edge == "on"
-	            rollReference = getMyoRollDegrees()
-	            moveSince = now
-	            enabled=true
-				-- myo.keyboard("2", "press") -- left
-			end
-
-			-- moveActive = edge == "on"
-   --          rollReference = getMyoRollDegrees()
-   --          moveSince = now
-   --          enabled=true
-			-- delaySince = now
 		elseif (pose == "rest" and paused == true) then
 			myo.debug("unpausing the music (if its paused)")
 			paused = false
-			
-			-- myo.keyboard("y", "press")
-			-- myo.keyboard("u", "press")
 
-			for i = 0, 25, 1 do
-				myo.keyboard("F4", "press")
-	            myo.keyboard("F8", "press")
+			for i = 0, pitch_difference, 1 do
+				myo.keyboard("f4", "press")
+	            myo.keyboard("f8", "press")
 			end
+
+			pitch_difference = 0
 			
+		elseif (pose == "rest" and scratch_enabled == true) then
+			myo.debug("taking the scratch offfffff!")
+			scratch_enabled = false
+
+			myo.keyboard("comma", "up")
+			myo.keyboard("c", "up")
 		else
             enabled=false
 		end
 	end
 end
 
--- function changeFilter()
--- 	local new_user_position = myo.getPitch()
--- 	myo.debug("new user pos is: " .. new_user_position)
-
--- 	local difference = new_user_position - user_position
-
--- 	if (difference > 0.05) then
--- 		myo.keyboard("7", "press") -- left
--- 		myo.keyboard("9", "press") -- right
--- 	elseif (difference < -0.05) then
--- 		myo.keyboard("1", "press") -- left
--- 		myo.keyboard("3", "press") -- right
--- 	-- else
--- 	-- 	myo.keyboard("4", "press") -- left
--- 	-- 	myo.keyboard("6", "press") -- right
--- 	end
-
--- end
-
 function adjustScratch()
-	local new_user_position = myo.getPitch()
-	myo.debug("new user pos is: " .. new_user_position)
 
-	local difference = new_user_position - user_position
+	scratch_enabled = true
+	myo.keyboard("c", "down")
 
-	-- Moving the right track
-	if (current_move == "waveIn") then
-		myo.keyboard("8", "press")
-	-- moving to left track
-	elseif (current_move == "waveOut") then
-		myo.keyboard("2", "press")
-	-- spinning the track
-	-- else
-	-- 	myo.keyboard("2", "press")
-	end
+	myo.keyboard("comma", "down")
+
+end
+
+function adjustScratchTemp()
+
+	myo.keyboard("c", "press")
+
+	myo.keyboard("comma", "press")
 
 end
 
 -- This toggles ALL music in the application.
 function toggleFade()
-
-	for i = 0, 25, 1 do
-		myo.keyboard("F3", "press")
-	    myo.keyboard("F7", "press")
-	end
-
-	-- myo.keyboard("y", "press")
-	-- myo.keyboard("u", "press")
+	myo.keyboard("f3", "press")
+    myo.keyboard("f7", "press")
 end
 
 -- This is for detecting arm rotations
@@ -216,27 +167,23 @@ function onPeriodic()
     local now = myo.getTimeMilliseconds()
     if (myo.isUnlocked()) and enabled then
         local relativeRoll = degreeDiff(getMyoRollDegrees(), rollReference)
-        if math.abs(relativeRoll)> ROLL_MOTION_THRESHOLD then
-            if now - moveSince > SLOW_MOVE_PERIOD then
 
-            	-- This is for the volume case (fingersSpead)
-            	if (current_move == "fingersSpread") then
-	                if relativeRoll>0 then
-	                	myo.debug("pitch turnt upppp")
-	                    myo.keyboard("F4", "press")
-	                    myo.keyboard("F8", "press")
-	                else
-	                	myo.debug("pitch turnt downnnnnnnnnnnnn")
-	                    myo.keyboard("F3", "press")
-	                    myo.keyboard("F7", "press")
-	                end    
-	            end
-
-                moveSince = now
-            end
-        elseif (current_move == "waveIn" or current_move == "waveOut") then
+        if (current_move == "waveOut") then
         	adjustScratch()
         	moveSince = now
+
+        elseif (current_move == "waveIn") then
+        	adjustScratchTemp()
+        	moveSince = now
+
+        elseif (current_move == "fist") then
+
+        	-- This prevents it from counting it if its at the minimum.
+        	if (pitch_difference < 19) then
+        		pitch_difference = pitch_difference + 1
+        	end
+
+        	toggleFade()
         end
     end
 end  
