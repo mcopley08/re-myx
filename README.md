@@ -1,7 +1,9 @@
 # dj-sparta
 A Myo application targeted towards live performance artists.
 
-## To install the script for Myo, open Myo's Application Manager and add the ```main.lua``` file to it.
+## Installing the script for Myo
+
+To install the script for Myo, open Myo's Application Manager and add the ```main.lua``` file to it.
 
 ## Installing the DJ Software (Mixxx)
 
