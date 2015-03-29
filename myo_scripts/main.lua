@@ -1,5 +1,5 @@
-scriptId = 'com.thalmic.examples.myfirstscript'
-scriptTitle = "SpartaHack - DJ Sparta"
+scriptId = 'com.thalmic.BaidCopley.Myx-Preset1'
+scriptTitle = "Myx - Preset 1"
 scriptDetailsUrl = ""
 
 myo.setLockingPolicy("standard")
