@@ -1,5 +1,0 @@
-scriptId = 'com.thalmic.examples.myfirstscript'
-scriptTitle = "SpartaHack - DJ Sparta Preset 2"
-scriptDetailsUrl = ""
-
-myo.setLockingPolicy("standard")
