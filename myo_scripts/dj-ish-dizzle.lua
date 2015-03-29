@@ -1,5 +1,5 @@
 scriptId = 'com.thalmic.Baid_Copley.Myx'
-scriptTitle = "Myx - P2"
+scriptTitle = "Myx - Ish"
 scriptDetailsUrl = ""
 
 myo.setLockingPolicy("standard")

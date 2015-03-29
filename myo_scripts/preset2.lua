@@ -36,7 +36,7 @@ scratch_enabled = false
 
 function onForegroundWindowChange(app, title)
 	-- myo.debug("onForegroundWindowChange: " .. app .. ", " .. title)
-	if (title == "Mixxx 1.11.0 x64") then
+	if (title == "Mixxx 1.11.0 x64") or (title == "Mixxx") then
 		myo.debug("its in the djj thanngggg")
 		user_position = myo.getPitch()
 		myo.debug("user position is: " .. user_position)
@@ -121,8 +121,8 @@ function onPoseEdge(pose, edge)
 			paused = false
 
 			for i = 0, pitch_difference, 1 do
-				myo.keyboard("f4", "press")
-	            myo.keyboard("f8", "press")
+				myo.keyboard("z", "press")
+	            myo.keyboard("n", "press")
 			end
 
 			pitch_difference = 0
@@ -158,8 +158,8 @@ end
 
 -- This toggles ALL music in the application.
 function toggleFade()
-	myo.keyboard("f3", "press")
-    myo.keyboard("f7", "press")
+	myo.keyboard("1", "press")
+    myo.keyboard("3", "press")
 end
 
 -- This is for detecting arm rotations
