@@ -121,8 +121,8 @@ function onPoseEdge(pose, edge)
 			paused = false
 
 			for i = 0, pitch_difference, 1 do
-				myo.keyboard("z", "press")
-	            myo.keyboard("n", "press")
+				myo.keyboard("f4", "press")
+	            myo.keyboard("f8", "press")
 			end
 
 			pitch_difference = 0
@@ -142,9 +142,9 @@ end
 function adjustScratch()
 
 	scratch_enabled = true
-	myo.keyboard("c", "down")
-
 	myo.keyboard("comma", "down")
+	myo.keyboard("c", "down")
+	
 
 end
 
@@ -158,8 +158,8 @@ end
 
 -- This toggles ALL music in the application.
 function toggleFade()
-	myo.keyboard("1", "press")
-    myo.keyboard("3", "press")
+	myo.keyboard("f3", "press")
+    myo.keyboard("f7", "press")
 end
 
 -- This is for detecting arm rotations

@@ -81,7 +81,7 @@ function onPoseEdge(pose, edge)
 				myo.debug("Fist: "..fistCount)
 				fistCount = fistCount + 1
 			end
-			if(fistCount == 3) then
+			if(fistCount == 2) then
 				myo.debug("Triple press")
 				fistCount = 0
 				thriplePress()
