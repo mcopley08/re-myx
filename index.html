@@ -11,9 +11,9 @@
 		<!-- Page Title -->
         <title>Re-Myx</title>		
 		<!-- Meta Description -->
-        <meta name="description" content="Blue One Page Creative HTML5 Template">
-        <meta name="keywords" content="one page, single page, onepage, responsive, parallax, creative, business, html5, css3, css3 animation">
-        <meta name="author" content="Muhammad Morshed">
+        <meta name="description" content="Re-Myx: Live Performance Enhancement">
+        <meta name="keywords" content="concerts, dj, music, live, shows, myo, armband">
+        <meta name="author" content="Michael Copley">
 		<!-- Mobile Specific Meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -161,6 +161,39 @@
 		
         <!--
         End Home SliderEnd
+        ==================================== -->
+
+        <!--
+        What We Do
+        ==================================== -->
+
+        <section id="what_we_do" class="works">
+			<div class="container">
+				<div class="row">
+				
+					<div class="sec-title text-center mb50 wow bounceInDown animated" data-wow-duration="500ms">
+						<h2>What We Do</h2>
+						<div class="devider"><i class="fa fa-line-chart fa-lg"></i></div>
+
+						<div class="sec-sub-title text-center wow fadeInRight animated" data-wow-duration="700ms">
+							<p><strong>Re-Myx</strong> integrates software into live performances so that artists can control their aspects of their set simply with different hand gestures using the <b style="cursor:pointer" onclick="window.open('https://www.thalmic.com/en/myo/')" target="_blank">Myo armband</b>. We provide custom integration for all artists, and the software can control: </p><br>
+							
+								<i class="fa fa-microphone fa-lg"></i><p style="display:inline"> &nbsp;Music EQ, Volume, Pitch, etc.</p><br>
+								<i class="fa fa-lightbulb-o fa-lg"></i><p style="display:inline"> &nbsp;Lights, smoke, fog effects</p><br>
+								<i class="fa fa-cubes fa-lg"></i><p style="display:inline"> &nbsp;Audio Visualization, on-screen graphics, digital content</p></li><br>
+								<p><strong>...and essentially anything else that integrates with a keyboard/mouse!</strong></p>
+
+							<br><p>Please reach out and tell us what we can do for your live performance. We're ready to help you give your fans an experience they will never forget.</p>
+							
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</section>
+
+        <!--
+        End What We Do
         ==================================== -->
 		
         <!--
@@ -543,8 +576,8 @@
 					<!-- contact form -->
 					<div class="col-lg-8 col-md-8 col-sm-7 col-xs-12 wow fadeInDown animated" data-wow-duration="500ms" data-wow-delay="300ms">
 						<div class="contact-form">
-							<h3>Send us an email at mdcopley@umich.edu.</h3>
-							<form action="mailto:mdcopley@umich.edu" id="contact-form">
+							<h3>Send us an email at: mdcopley@umich.edu</h3>
+							<!-- <form action="mailto:mdcopley@umich.edu" id="contact-form">
 								<div class="input-group name-email">
 									<div class="input-field">
 										<input type="text" name="name" id="name" placeholder="Name" class="form-control">
@@ -559,7 +592,7 @@
 								<div class="input-group">
 									<input type="submit" id="form-submit" class="pull-right" value="Send message">
 								</div>
-							</form>
+							</form> -->
 						</div>
 					</div>
 					<!-- end contact form -->
@@ -699,6 +732,23 @@
 
 			/* This is for the full screen video background */
 			$(document).ready(function () {
+
+				function initialize() {
+				    var mapCanvas = document.getElementById('map_canvas');
+				    var mapOptions = {
+				      center: new google.maps.LatLng(42.282544, -83.732732),
+				      zoom: 16,
+				      mapTypeId: google.maps.MapTypeId.ROADMAP
+				    }
+				    var map = new google.maps.Map(mapCanvas, mapOptions);
+				    var marker = new google.maps.Marker({
+					    position: new google.maps.LatLng(42.282544, -83.732732),
+					    map: map,
+					    title: 'Re-Myx Offices'
+					});
+				  }
+				  google.maps.event.addDomListener(window, 'load', initialize);
+
 			    $(".player").mb_YTPlayer();
 
 
