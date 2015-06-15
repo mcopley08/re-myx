@@ -84,7 +84,7 @@ function onPoseEdge(pose, edge)
 			myo.debug("doubleTap - #djsweg")
 			myo.lock()
 		elseif (pose == "fist") then
-			myo.debug("fist - #djsweg pausing muzik")
+			myo.debug("fist - #lowers pitch temporarily")
 			paused = true
 			moveActive = edge == "on"
             rollReference = getMyoRollDegrees()

@@ -49,7 +49,7 @@ end
 function getMyoRollDegrees()  
     local RollValue = math.deg(myo.getRoll())
     return RollValue
-end  
+end
 
 function degreeDiff(value, base)  
     local diff = value - base
@@ -142,7 +142,7 @@ end
 function volumeUp()
 	--increase volume
 	for var = 0, 10, 1 do
-			myo.keyboard("equal", "press")
+		myo.keyboard("equal", "press")
 	end
 	
 end
